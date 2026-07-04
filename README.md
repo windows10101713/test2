@@ -493,8 +493,73 @@ B-3. Directions URL 생성 규칙
 
 상세 명세 부록 C. 데이터 모델
 
-C-1. 클라이언트 상태 객체 (예시)
+C-1. 클라이언트 상태 객체 (예시):
+```json
+{
+   "currentPosition": {
+      "lat": 37.5665,
+      "lon": 126.9780
+   },
+   "destination": {
+      "label": "서울역",
+      "lat": 37.5547,
+      "lon": 126.9706
+   },
+   "nearbyResults": [
+      {
+         "name": "가나다약국",
+         "type": "pharmacy",
+         "lat": 37.56,
+         "lon": 126.97,
+         "distanceKm": 0.42
+      }
+   ],
+   "lastUpdatedAt": "2026-07-04T10:30:00+09:00"
+}
+```
 
+C-2. localStorage 키 설계 (v0.3 계획):
+```
+lmn-settings
+   language: ko | en
+   radiusMeters: number
+
+lmn-recent-searches
+   ["서울역", "강남역", "인천공항"]
+
+lmn-favorites
+   [{"name":"집","lat":...,"lon":...}, {"name":"회사","lat":...,"lon":...}]
+```
+
+==============================================================================
+
+상세 명세 부록 D. 상태 전이 (State Flow)
+
+D-1. 초기 상태
+```
+S0: READY
+```
+
+D-2. 위치 찾기
+```
+S0 -> S1(LOCATING) -> S2(LOCATED) 또는 E1(LOCATION_DENIED)
+```
+
+D-3. 목적지 검색
+```
+S0/S2 -> S3(SEARCHING) -> S4(DESTINATION_SET) 또는 E2(NO_RESULT) 또는 E3(API_ERROR)
+```
+
+D-4. 주변 시설 조회
+```
+S2 -> S5(NEARBY_LOADING) -> S6(NEARBY_READY) 또는 E3(API_ERROR)
+```
+
+D-5. 길찾기
+```
+조건: currentPosition && destination 존재 시에만 실행
+실패 상태: E4(PREREQUISITE_MISSING)
+```
 {
    "currentPosition": { "lat": 37.5665, "lon": 126.9780 },
    "destination": {

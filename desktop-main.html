@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LMN 데스크톱 메인 지도 v0.2.1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-[Noto_Sans] bg-[#fbf9f8] text-[#1b1c1c] h-screen overflow-hidden">
+  <header class="h-11 border-b border-[#becab9] bg-white px-4 flex items-center justify-between">
+    <strong class="text-[#006e1c] text-lg">LMN</strong>
+    <a href="index.html" class="text-sm text-[#0061a4]">목록</a>
+  </header>
+
+  <main class="h-[calc(100vh-44px)] flex">
+    <section class="w-[36%] max-w-[430px] border-r border-[#becab9] bg-[#f6f3f2] flex flex-col">
+      <div class="p-4 space-y-3 overflow-auto">
+        <div class="rounded-xl bg-[#4caf50] text-white p-4 flex items-center justify-between">
+          <div>
+            <p class="text-xs opacity-90">내 위치</p>
+            <p id="coords" class="font-mono text-sm">(37.5665, 126.9780)</p>
+          </div>
+          <button class="bg-white text-[#4caf50] rounded-lg px-3 py-2 text-sm font-bold">내 위치 찾기</button>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-[#3f4a3c]">목적지 검색</label>
+          <div class="flex gap-2">
+            <input class="flex-1 h-11 rounded-xl border border-[#becab9] px-3" placeholder="서울역, 강남역, 병원..." />
+            <button class="h-11 px-4 rounded-xl bg-[#2196F3] text-white font-semibold">검색</button>
+          </div>
+        </div>
+
+        <button id="routeBtn" class="w-full h-11 rounded-xl bg-[#FF9800] text-white font-semibold">길찾기 열기</button>
+
+        <div class="grid grid-cols-3 gap-2">
+          <button class="h-20 rounded-xl border border-[#becab9] bg-white">🏥<br><span class="text-xs">병원</span></button>
+          <button class="h-20 rounded-xl border border-[#becab9] bg-white">💊<br><span class="text-xs">약국</span></button>
+          <button class="h-20 rounded-xl border border-[#becab9] bg-white">🏪<br><span class="text-xs">편의점</span></button>
+        </div>
+      </div>
+      <div class="h-14 px-4 border-t border-[#becab9] bg-[#e9f6ea] flex items-center text-sm text-[#006e1c] font-semibold">✓ 목적지를 찾았습니다.</div>
+    </section>
+
+    <section class="flex-1 relative">
+      <div id="map" class="w-full h-full"></div>
+      <div class="absolute right-4 bottom-4 flex flex-col gap-2 z-[1000]">
+        <button class="w-11 h-11 rounded-xl bg-white border border-[#becab9]">＋</button>
+        <button class="w-11 h-11 rounded-xl bg-white border border-[#becab9]">－</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const map = L.map('map', { zoomControl: false }).setView([37.5665, 126.9780], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    let lat = 37.5665;
+    let lng = 126.9780;
+    const coords = document.getElementById('coords');
+    setInterval(() => {
+      lat += (Math.random() - 0.5) * 0.00005;
+      lng += (Math.random() - 0.5) * 0.00005;
+      coords.textContent = `(${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+    }, 3000);
+  </script>
+</body>
+</html>

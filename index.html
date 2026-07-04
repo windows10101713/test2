@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LMN v0.2.1 Mock Screens</title>
+  <style>
+    :root {
+      --bg: #f4f7f4;
+      --card: #ffffff;
+      --text: #1b1c1c;
+      --muted: #5a6558;
+      --line: #c8d3c5;
+      --primary: #006e1c;
+      --secondary: #0061a4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Noto Sans", sans-serif;
+      background: radial-gradient(circle at top right, #e9f4ee 0%, var(--bg) 55%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1 { margin: 0 0 8px; }
+    p { margin: 0 0 24px; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    a {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .15s ease, box-shadow .15s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,.04);
+    }
+    a:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.08); }
+    .tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: white;
+      background: var(--secondary);
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+    .desktop { background: var(--primary); }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="wrap">
+    <h1>LMN v0.2.1 화면 시안</h1>
+    <p>붙여주신 시안을 화면별로 분리해 바로 열어볼 수 있게 구성했습니다.</p>
+
+    <div class="grid">
+      <a href="desktop-main.html">
+        <strong>데스크톱 메인 지도</strong>
+        <div class="tag desktop">Desktop</div>
+      </a>
+      <a href="mobile-main.html">
+        <strong>모바일 메인 지도</strong>
+        <div class="tag">Mobile</div>
+      </a>
+      <a href="mobile-results.html">
+        <strong>모바일 검색 결과 목록</strong>
+        <div class="tag">Mobile</div>
+      </a>
+      <a href="mobile-search.html">
+        <strong>모바일 검색 탭</strong>
+        <div class="tag">Mobile</div>
+      </a>
+      <a href="mobile-saved.html">
+        <strong>모바일 저장 탭</strong>
+        <div class="tag">Mobile</div>
+      </a>
+      <a href="mobile-profile.html">
+        <strong>모바일 내 정보 탭</strong>
+        <div class="tag">Mobile</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

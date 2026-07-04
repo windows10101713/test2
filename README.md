@@ -470,17 +470,22 @@ B-2. Overpass (주변 시설)
    - shop: convenience
 * 타임아웃 권장: 10초
 
-쿼리 예시
+쿼리 예시:
+```
 [out:json][timeout:20];
 (
    node["amenity"~"hospital|pharmacy|clinic"](around:1500,37.5665,126.9780);
    node["shop"="convenience"](around:1500,37.5665,126.9780);
 );
 out body;
+```
 
 B-3. Directions URL 생성 규칙
+
 * Base: https://www.openstreetmap.org/directions
 * Params
+      - engine=fossgis_osrm_car (기본 차량)
+      - route={lat1},{lon1};{lat2},{lon2}
    - engine=fossgis_osrm_car (기본 차량)
    - route={lat1},{lon1};{lat2},{lon2}
 

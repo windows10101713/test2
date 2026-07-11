@@ -1,49 +1,280 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LMN 모바일 검색 탭</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#fbf9f8] text-[#1b1c1c] min-h-screen">
-  <header class="h-11 border-b border-[#becab9] bg-white px-4 flex items-center justify-between sticky top-0">
-    <strong>검색</strong>
-    <a href="index.html" class="text-xs text-[#0061a4]">목록</a>
-  </header>
+﻿<!-- LMN 검색 탭 (모바일) -->
+<!DOCTYPE html>
 
-  <main class="pb-20 px-4 py-4 space-y-5">
-    <div class="relative">
-      <input class="w-full h-11 rounded-lg border border-[#becab9] px-3" placeholder="Search destinations, shops..." />
-    </div>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search - MapLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary-fixed-variant": "#005313",
+                "secondary-container": "#33a0fd",
+                "inverse-primary": "#78dc77",
+                "primary-fixed-dim": "#78dc77",
+                "on-surface": "#1b1c1c",
+                "on-secondary-fixed": "#001d36",
+                "primary-fixed": "#94f990",
+                "tertiary-container": "#e18500",
+                "outline-variant": "#becab9",
+                "secondary-fixed-dim": "#9ecaff",
+                "on-tertiary-fixed-variant": "#693c00",
+                "surface-container-low": "#f6f3f2",
+                "inverse-surface": "#303030",
+                "tertiary-fixed-dim": "#ffb870",
+                "surface-container": "#f0eded",
+                "on-tertiary-container": "#4d2b00",
+                "primary": "#006e1c",
+                "surface-container-highest": "#e4e2e1",
+                "on-tertiary": "#ffffff",
+                "on-secondary": "#ffffff",
+                "error": "#ba1a1a",
+                "background": "#fbf9f8",
+                "surface-tint": "#006e1c",
+                "surface-dim": "#dcd9d9",
+                "surface-variant": "#e4e2e1",
+                "inverse-on-surface": "#f3f0f0",
+                "outline": "#6f7a6b",
+                "on-background": "#1b1c1c",
+                "primary-container": "#4caf50",
+                "tertiary": "#8b5000",
+                "surface-bright": "#fbf9f8",
+                "on-secondary-container": "#00355c",
+                "on-tertiary-fixed": "#2c1600",
+                "on-primary-container": "#003c0b",
+                "on-primary": "#ffffff",
+                "error-container": "#ffdad6",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-fixed": "#002204",
+                "secondary-fixed": "#d1e4ff",
+                "secondary": "#0061a4",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#3f4a3c",
+                "on-secondary-fixed-variant": "#00497d",
+                "surface": "#fbf9f8",
+                "surface-container-high": "#eae8e7",
+                "on-error-container": "#93000a",
+                "tertiary-fixed": "#ffdcbe"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "stack-md": "8px",
+                "gutter": "12px",
+                "touch-target-min": "44px",
+                "stack-sm": "4px",
+                "stack-lg": "16px",
+                "margin-page": "16px"
+            },
+            "fontFamily": {
+                "title": ["Noto Sans"],
+                "header-mobile": ["Noto Sans"],
+                "header-desktop": ["Noto Sans"],
+                "body": ["Noto Sans"],
+                "body-sm": ["Noto Sans"],
+                "label-caps": ["Noto Sans"]
+            },
+            "fontSize": {
+                "title": ["16px", {"lineHeight": "22px", "fontWeight": "600"}],
+                "header-mobile": ["17px", {"lineHeight": "22px", "fontWeight": "700"}],
+                "header-desktop": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.5px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm flex items-center justify-between px-margin-page h-[44px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">explore</span>
+<h1 class="font-header-mobile text-header-mobile text-primary dark:text-primary-fixed-dim">LMN</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors p-1 rounded-full active:scale-95 duration-150">
+            my_location
+        </button>
+</header>
+<main class="pt-[44px] pb-[64px] min-h-screen">
+<!-- Search Canvas -->
+<section class="px-margin-page py-stack-lg">
+<!-- Main Search Field -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-[44px] pl-10 pr-10 bg-surface-container-lowest border border-outline rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary transition-all font-body text-body" placeholder="Search destinations, shops..." type="text"/>
+<button class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary">mic</button>
+</div>
+<!-- Recent Searches -->
+<div class="mt-stack-lg">
+<div class="flex justify-between items-center mb-stack-md">
+<h2 class="font-title text-title">Recent Searches</h2>
+<button class="text-primary font-label-caps text-label-caps uppercase hover:underline">Clear All</button>
+</div>
+<div class="space-y-stack-sm">
+<div class="flex items-center gap-stack-md h-[44px] px-stack-md hover:bg-surface-container rounded-lg cursor-pointer transition-colors border-l-4 border-primary">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+<span class="flex-1 font-body text-body">Central Park Medical</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">close</span>
+</div>
+<div class="flex items-center gap-stack-md h-[44px] px-stack-md hover:bg-surface-container rounded-lg cursor-pointer transition-colors border-l-4 border-secondary">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+<span class="flex-1 font-body text-body">24/7 Pharmacy Downtown</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">close</span>
+</div>
+</div>
+</div>
+<!-- Trending Categories -->
+<div class="mt-stack-lg">
+<h2 class="font-title text-title mb-stack-md">Trending Categories</h2>
+<div class="flex overflow-x-auto gap-stack-md hide-scrollbar pb-2">
+<!-- Category Card: Hospital -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center gap-1 w-[88px] h-[88px] bg-error-container text-on-error-container rounded-xl shadow-sm active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[32px]">festival</span>
+<span class="font-label-caps text-[10px]">Hospital</span>
+</div>
+<!-- Category Card: Pharmacy -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center gap-1 w-[88px] h-[88px] bg-secondary-container text-on-secondary-container rounded-xl shadow-sm active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[32px]">medical_services</span>
+<span class="font-label-caps text-[10px]">Pharmacy</span>
+</div>
+<!-- Category Card: Convenience -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center gap-1 w-[88px] h-[88px] bg-tertiary-container text-on-tertiary-container rounded-xl shadow-sm active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[32px]">store</span>
+<span class="font-label-caps text-[10px]">Convenience</span>
+</div>
+<!-- Category Card: Gas -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center gap-1 w-[88px] h-[88px] bg-surface-container-highest text-on-surface-variant rounded-xl shadow-sm active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[32px]">local_gas_station</span>
+<span class="font-label-caps text-[10px]">Gas Station</span>
+</div>
+</div>
+</div>
+<!-- Popular Places -->
+<div class="mt-stack-lg">
+<h2 class="font-title text-title mb-stack-md">Popular Places Near You</h2>
+<div class="space-y-gutter">
+<!-- Place Item 1 -->
+<div class="flex gap-stack-lg p-stack-sm bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden group">
+<div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container-high relative">
+<img class="w-full h-full object-cover" data-alt="A clean, clinical, and brightly lit modern hospital exterior with glass walls and professional signage. The scene is shot during a clear, sunny morning with soft shadows and a professional corporate aesthetic. The colors are dominated by clinical whites, soft blues, and corporate greens, reflecting a dependable and efficient healthcare environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArSx6SRS1R2YMe8ODFrEVt1BeSRv4wT9jWkXXTo2M8lraid95fFfOQcCMZ_LYHc5wjDDx8axNtDJOuHGZQgL3iOmx0RNcgyX5IsQiwYphZ65fYs2sxbLpRFRevUBiFGQ4pzHW26xsivNAlWp5uWXRx_kdL2IZ547nd8fOJMM8FAVB3R26pGfkBcqUjwzrfvakQtMIeYCixt9GGsif5TUKSTTPjBRoyiCbMSZxixTaD21HyzPCSeEkZ"/>
+<div class="absolute top-1 left-1 bg-primary text-on-primary text-[10px] px-1.5 py-0.5 rounded-full font-label-caps">OPEN</div>
+</div>
+<div class="flex-1 flex flex-col justify-center pr-stack-sm">
+<h3 class="font-title text-body font-bold text-on-surface truncate">St. Jude General Medical</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.8 (2.4k reviews)
+                            </p>
+<p class="text-body-sm text-on-surface-variant mb-2">0.8 miles away • Emergency Care</p>
+<button class="h-stack-lg w-fit px-4 bg-primary text-on-primary rounded-full font-label-caps text-[10px] flex items-center gap-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[14px]">directions</span> NAVIGATE
+                            </button>
+</div>
+</div>
+<!-- Place Item 2 -->
+<div class="flex gap-stack-lg p-stack-sm bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden group">
+<div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A modern, high-end pharmacy interior with organized wooden shelving, bright LED lighting, and a minimalist design. The atmosphere is quiet, efficient, and corporate, featuring a palette of white, teal, and navy blue. The image capture is high-definition, emphasizing a clean and high-utility service environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoIxU6ZsPDrOcnnG4XcsrdI8d6QBlm6RGESUQ_METqPG5ZTeQ1A4zTZRi2TktuGielBq8vaEfb4_91AFc0hyBB6_K3hexSkpIByKrnVIkImEPYvFwktCndNP7Vur8aoDF1LP8TI10JP1KUyX73eTmQodHZybGEe7OktCPwhFkiUD4g1s1NZC3yi9pRbExs0v5snLRDkovYaGSUHDBSQcNF1z46kGNwg6rtB2O4WR9zimFOpe9I4uc8"/>
+</div>
+<div class="flex-1 flex flex-col justify-center pr-stack-sm">
+<h3 class="font-title text-body font-bold text-on-surface truncate">HealthFirst Pharmacy 24/7</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.5 (890 reviews)
+                            </p>
+<p class="text-body-sm text-on-surface-variant mb-2">1.2 miles away • Pharmacy</p>
+<button class="h-stack-lg w-fit px-4 border border-primary text-primary rounded-full font-label-caps text-[10px] flex items-center gap-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[14px]">call</span> CALL NOW
+                            </button>
+</div>
+</div>
+<!-- Place Item 3 -->
+<div class="flex gap-stack-lg p-stack-sm bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden group">
+<div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="An upscale, modern convenience store storefront at night with bright, warm interior lighting spilling onto a clean sidewalk. The branding is professional and minimalist, featuring a sophisticated color scheme of deep charcoal and vibrant yellow accents. The visual style is crisp and commercial, suggesting quality and round-the-clock accessibility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwr5_OjxdRqC-7htMevs8DTXGXAcSZtQZP5bO11ch2istOZJGIF2UvbviX_0n3pndY48NYwbUNq9Psv38lmFsOrqRi2GyDz1YoBMSC4rx957osMC22VT83kRTBVokZJvyEVUmu2Ik7sbEyOtSxge3r5EwHc4QAEW7aT8NaBJz7rR-we1tZDVAmIEmjPqOceyFbRelIYXKm0XW1Zy0QAa3Nmtg4tsXiQHXD0k3fmk8APBl_XTqT9_2h"/>
+</div>
+<div class="flex-1 flex flex-col justify-center pr-stack-sm">
+<h3 class="font-title text-body font-bold text-on-surface truncate">QuickStop Premium Mart</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.2 (1.1k reviews)
+                            </p>
+<p class="text-body-sm text-on-surface-variant mb-2">0.5 miles away • Groceries</p>
+<button class="h-stack-lg w-fit px-4 bg-primary text-on-primary rounded-full font-label-caps text-[10px] flex items-center gap-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[14px]">directions</span> NAVIGATE
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,0,0,0.1)] flex justify-around items-center h-[64px] px-gutter">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-opacity active:opacity-80 px-2 py-1 rounded-lg" href="mobile-main.html">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps">Map</span>
+</a>
+<!-- ACTIVE TAB: Search -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-stack-lg py-1 transition-opacity active:opacity-80" href="mobile-search.html">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-opacity active:opacity-80 px-2 py-1 rounded-lg" href="mobile-saved.html">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-caps text-label-caps">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-opacity active:opacity-80 px-2 py-1 rounded-lg" href="mobile-profile.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button (Optional Contextual FAB) -->
+<button class="fixed bottom-20 right-4 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined">location_on</span>
+</button>
+<script>
+        // Simple search interactivity
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-secondary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-secondary');
+        });
 
-    <section>
-      <div class="flex justify-between items-center mb-2">
-        <h2 class="font-semibold">Recent Searches</h2>
-        <button class="text-xs text-[#0061a4]">Clear All</button>
-      </div>
-      <div class="space-y-2">
-        <div class="h-11 bg-white border border-[#becab9] rounded-lg px-3 flex items-center">Central Park Medical</div>
-        <div class="h-11 bg-white border border-[#becab9] rounded-lg px-3 flex items-center">24/7 Pharmacy Downtown</div>
-      </div>
-    </section>
+        // Interactive states for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Mock interaction
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 150);
+            });
+        });
+    </script>
+</body></html>
 
-    <section>
-      <h2 class="font-semibold mb-2">Trending Categories</h2>
-      <div class="grid grid-cols-4 gap-2 text-xs text-center">
-        <div class="h-20 rounded-xl bg-[#ffdad6] flex items-center justify-center">Hospital</div>
-        <div class="h-20 rounded-xl bg-[#d1e4ff] flex items-center justify-center">Pharmacy</div>
-        <div class="h-20 rounded-xl bg-[#ffdcbe] flex items-center justify-center">Convenience</div>
-        <div class="h-20 rounded-xl bg-[#e4e2e1] flex items-center justify-center">Gas</div>
-      </div>
-    </section>
-  </main>
-
-  <nav class="fixed bottom-0 w-full h-16 border-t border-[#becab9] bg-white grid grid-cols-4 text-xs">
-    <a class="flex items-center justify-center" href="mobile-main.html">Map</a>
-    <a class="flex items-center justify-center font-bold text-[#0061a4]" href="mobile-search.html">Search</a>
-    <a class="flex items-center justify-center" href="mobile-saved.html">Saved</a>
-    <a class="flex items-center justify-center" href="mobile-profile.html">Profile</a>
-  </nav>
-</body>
-</html>

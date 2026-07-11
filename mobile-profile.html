@@ -1,40 +1,293 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LMN 모바일 내 정보 탭</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#fbf9f8] text-[#1b1c1c] min-h-screen">
-  <header class="h-11 border-b border-[#becab9] bg-white px-4 flex items-center justify-between sticky top-0">
-    <strong>내 정보</strong>
-    <a href="index.html" class="text-xs text-[#0061a4]">목록</a>
-  </header>
+﻿<!-- LMN 내 정보 탭 (모바일) -->
+<!DOCTYPE html>
 
-  <main class="pb-20 px-4 py-4 space-y-4">
-    <section class="rounded-xl border border-[#becab9] bg-white p-4 flex items-center gap-3">
-      <div class="w-14 h-14 rounded-full bg-[#d1e4ff]"></div>
-      <div>
-        <p class="font-semibold">Hello, Guest</p>
-        <p class="text-xs text-[#6f7a6b]">Anonymous Session Active</p>
-      </div>
-    </section>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#005313",
+                    "secondary-container": "#33a0fd",
+                    "inverse-primary": "#78dc77",
+                    "primary-fixed-dim": "#78dc77",
+                    "on-surface": "#1b1c1c",
+                    "on-secondary-fixed": "#001d36",
+                    "primary-fixed": "#94f990",
+                    "tertiary-container": "#e18500",
+                    "outline-variant": "#becab9",
+                    "secondary-fixed-dim": "#9ecaff",
+                    "on-tertiary-fixed-variant": "#693c00",
+                    "surface-container-low": "#f6f3f2",
+                    "inverse-surface": "#303030",
+                    "tertiary-fixed-dim": "#ffb870",
+                    "surface-container": "#f0eded",
+                    "on-tertiary-container": "#4d2b00",
+                    "primary": "#006e1c",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#fbf9f8",
+                    "surface-tint": "#006e1c",
+                    "surface-dim": "#dcd9d9",
+                    "surface-variant": "#e4e2e1",
+                    "inverse-on-surface": "#f3f0f0",
+                    "outline": "#6f7a6b",
+                    "on-background": "#1b1c1c",
+                    "primary-container": "#4caf50",
+                    "tertiary": "#8b5000",
+                    "surface-bright": "#fbf9f8",
+                    "on-secondary-container": "#00355c",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-container": "#003c0b",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#002204",
+                    "secondary-fixed": "#d1e4ff",
+                    "secondary": "#0061a4",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#3f4a3c",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "surface": "#fbf9f8",
+                    "surface-container-high": "#eae8e7",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdcbe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-md": "8px",
+                    "gutter": "12px",
+                    "touch-target-min": "44px",
+                    "stack-sm": "4px",
+                    "stack-lg": "16px",
+                    "margin-page": "16px"
+            },
+            "fontFamily": {
+                    "title": ["Noto Sans"],
+                    "header-mobile": ["Noto Sans"],
+                    "header-desktop": ["Noto Sans"],
+                    "body": ["Noto Sans"],
+                    "body-sm": ["Noto Sans"],
+                    "label-caps": ["Noto Sans"]
+            },
+            "fontSize": {
+                    "title": ["16px", {"lineHeight": "22px", "fontWeight": "600"}],
+                    "header-mobile": ["17px", {"lineHeight": "22px", "fontWeight": "700"}],
+                    "header-desktop": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.5px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .settings-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-page h-[44px] bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="explore">explore</span>
+<h1 class="font-header-mobile text-header-mobile text-primary dark:text-primary-fixed-dim">LMN</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim p-2 hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-150" data-icon="my_location">
+            my_location
+        </button>
+</header>
+<main class="pt-[44px] pb-[80px] max-w-md mx-auto overflow-x-hidden">
+<!-- Profile Header -->
+<section class="px-margin-page pt-stack-lg pb-stack-lg bg-surface-container-lowest flex items-center gap-4">
+<div class="relative">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A friendly and professional portrait of a generic 3D stylized character representing a guest user, using a clean corporate art style. The character has a warm expression with soft studio lighting, set against a vibrant blue and green gradient background that matches the MapLink brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGuaPT1ks95guPfmkV9ypp_2v9KZHDKXltuRlPn6n0qNEC5Y6uHtAJsiqAGBtMQI0hkm2Y-GyCJWjwK94K6TY-WwpUY9XeDdqAxpMcNRviAJ1PM9y3nTEEZb4d0LTKQoxI9izELZQ6K9SEd3kx907Ju6ksA9nuTIKAzZi41STushuH_Dz2fBcftkaq0mG_5i9bDeqdBqJfCkVzcojAXEagGBS-RRQizcAxdg0p6Kk3NLZ3TRg7gkeA"/>
+</div>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-primary rounded-full border-2 border-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+</div>
+<div>
+<h2 class="font-title text-title text-on-surface">Hello, Guest</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Anonymous Session Active</p>
+<div class="mt-1 flex items-center gap-1 bg-surface-container-high px-2 py-0.5 rounded-full w-fit">
+<span class="material-symbols-outlined text-[12px] text-primary" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-on-surface-variant">Privacy Shield ON</span>
+</div>
+</div>
+</section>
+<!-- Settings Group: App Preferences -->
+<section class="mt-stack-md px-margin-page">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant px-stack-sm mb-2 uppercase">App Preferences</h3>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/30 settings-card">
+<!-- Language Toggle -->
+<div class="flex items-center justify-between h-[64px] px-4 hover:bg-surface-variant/20 transition-colors border-l-4 border-primary">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="language">language</span>
+<div>
+<p class="font-body text-on-surface">Language</p>
+<p class="font-body-sm text-on-surface-variant">한국어 / English</p>
+</div>
+</div>
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="px-3 py-1 text-[12px] font-semibold bg-white rounded shadow-sm text-primary">KO</button>
+<button class="px-3 py-1 text-[12px] font-semibold text-on-surface-variant">EN</button>
+</div>
+</div>
+<!-- Radius Setting -->
+<div class="flex items-center justify-between h-[64px] px-4 hover:bg-surface-variant/20 transition-colors border-l-4 border-secondary-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="distance">distance</span>
+<div>
+<p class="font-body text-on-surface">Search Radius</p>
+<p class="font-body-sm text-on-surface-variant">Auto-detect 주변 검색</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-body font-semibold text-primary">1.5km</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Theme Toggle -->
+<div class="flex items-center justify-between h-[64px] px-4 hover:bg-surface-variant/20 transition-colors border-l-4 border-tertiary-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="dark_mode">dark_mode</span>
+<div>
+<p class="font-body text-on-surface">Display Theme</p>
+<p class="font-body-sm text-on-surface-variant">Light mode active</p>
+</div>
+</div>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full relative cursor-pointer flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform translate-x-0"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Service Information -->
+<section class="mt-stack-lg px-margin-page">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant px-stack-sm mb-2 uppercase">Information</h3>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/30 settings-card">
+<button class="w-full flex items-center justify-between h-[52px] px-4 hover:bg-surface-variant transition-colors border-l-4 border-outline">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help_center">help_center</span>
+<span class="font-body text-on-surface">Help &amp; Guide</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="open_in_new">open_in_new</span>
+</button>
+<button class="w-full flex items-center justify-between h-[52px] px-4 hover:bg-surface-variant transition-colors border-l-4 border-outline">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="info">info</span>
+<span class="font-body text-on-surface">Service Terms</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="mt-stack-lg px-margin-page">
+<h3 class="font-label-caps text-label-caps text-error px-stack-sm mb-2 uppercase">Privacy Management</h3>
+<button class="w-full bg-error-container/20 border border-error/20 rounded-xl px-4 py-3 flex items-center justify-between active:scale-[0.98] transition-transform" onclick="confirmReset()">
+<div class="flex flex-col items-start text-left">
+<span class="font-title text-error flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete_sweep">delete_sweep</span>
+                        Reset All Local Data
+                    </span>
+<span class="font-body-sm text-on-error-container mt-0.5">Wipe cache, history, and preferences instantly.</span>
+</div>
+<span class="material-symbols-outlined text-error" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</button>
+</section>
+<!-- App Version -->
+<div class="mt-stack-lg text-center pb-8">
+<p class="font-label-caps text-[10px] text-outline uppercase tracking-[2px]">MapLink Utility v2.4.0-stable</p>
+<p class="font-body-sm text-[10px] text-outline mt-1">© 2024 Waypoint Systems. All rights reserved.</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl flex justify-around items-center h-[64px] px-gutter bg-surface dark:bg-surface-container-lowest border-t border-outline-variant shadow-[0_-4px_12px_rgba(0,0,0,0.1)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant active:opacity-80 transition-opacity px-2 py-1 rounded-lg" href="mobile-main.html">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-caps text-label-caps">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant active:opacity-80 transition-opacity px-2 py-1 rounded-lg" href="mobile-search.html">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant active:opacity-80 transition-opacity px-2 py-1 rounded-lg" href="mobile-saved.html">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-label-caps text-label-caps">Saved</span>
+</a>
+<!-- ACTIVE TAB: Profile -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-stack-lg py-1 active:opacity-80 transition-opacity" href="mobile-profile.html">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        function confirmReset() {
+            const confirmed = confirm("Are you sure you want to reset all app data? This action cannot be undone.");
+            if (confirmed) {
+                document.body.style.opacity = "0.5";
+                setTimeout(() => {
+                    alert("All local data has been cleared.");
+                    location.reload();
+                }, 800);
+            }
+        }
 
-    <section class="rounded-xl border border-[#becab9] bg-white divide-y">
-      <div class="p-4 flex items-center justify-between"><span>Language</span><span class="text-sm text-[#0061a4]">KO / EN</span></div>
-      <div class="p-4 flex items-center justify-between"><span>Search Radius</span><span class="text-sm text-[#0061a4]">1.5km</span></div>
-      <div class="p-4 flex items-center justify-between"><span>Display Theme</span><span class="text-sm text-[#0061a4]">Light</span></div>
-    </section>
-
-    <button class="w-full rounded-xl border border-[#ffdad6] bg-[#fff2f0] text-[#ba1a1a] p-3 font-semibold">Reset All Local Data</button>
-  </main>
-
-  <nav class="fixed bottom-0 w-full h-16 border-t border-[#becab9] bg-white grid grid-cols-4 text-xs">
-    <a class="flex items-center justify-center" href="mobile-main.html">Map</a>
-    <a class="flex items-center justify-center" href="mobile-search.html">Search</a>
-    <a class="flex items-center justify-center" href="mobile-saved.html">Saved</a>
-    <a class="flex items-center justify-center font-bold text-[#0061a4]" href="mobile-profile.html">Profile</a>
-  </nav>
-</body>
-</html>
+        // Toggle micro-interaction for theme switch
+        const themeToggle = document.querySelector('.w-12.h-6');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                const dot = this.querySelector('div');
+                const isDark = dot.classList.contains('translate-x-6');
+                
+                if (isDark) {
+                    dot.classList.remove('translate-x-6');
+                    dot.classList.add('translate-x-0');
+                    document.documentElement.classList.remove('dark');
+                    this.classList.replace('bg-primary-container', 'bg-surface-container-highest');
+                } else {
+                    dot.classList.remove('translate-x-0');
+                    dot.classList.add('translate-x-6');
+                    document.documentElement.classList.add('dark');
+                    this.classList.replace('bg-surface-container-highest', 'bg-primary-container');
+                }
+            });
+        }
+    </script>
+</body></html>         이거 그대로 html만들어

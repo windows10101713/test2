@@ -1,9 +1,30 @@
-<!doctype html>
+  <!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#006e1c" />
+  <link rel="manifest" href="manifest.webmanifest" />
   <title>LMN v0.2.1 Mock Screens</title>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('manual') === '1') {
+        return;
+      }
+
+      var ua = navigator.userAgent || '';
+      var uaMobile = /Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Opera Mini|IEMobile/i.test(ua);
+      var coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      var narrowViewport = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+      var mobileLike = uaMobile || (coarsePointer && narrowViewport);
+
+      var target = mobileLike ? 'mobile-main.html' : 'desktop-main.html';
+      if (!window.location.pathname.endsWith(target)) {
+        window.location.replace(target);
+      }
+    })();
+  </script>
   <style>
     :root {
       --bg: #f4f7f4;
@@ -63,7 +84,7 @@
 <body>
   <div class="wrap">
     <h1>LMN v0.2.1 화면 시안</h1>
-    <p>붙여주신 시안을 화면별로 분리해 바로 열어볼 수 있게 구성했습니다.</p>
+    <p>기기에 맞는 화면으로 자동 전환됩니다. 직접 선택하려면 주소 뒤에 <strong>?manual=1</strong>을 붙여 주세요.</p>
 
     <div class="grid">
       <a href="desktop-main.html">
@@ -93,4 +114,11 @@
     </div>
   </div>
 </body>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+</script>
 </html>

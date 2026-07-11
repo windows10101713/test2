@@ -1,0 +1,11 @@
+{
+  "name": "Life Map Navigator",
+  "short_name": "LMN",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fbf9f8",
+  "theme_color": "#006e1c",
+  "lang": "ko",
+  "description": "로그인 없이 사용하는 생활 밀착형 로컬 지도",
+  "icons": []
+}

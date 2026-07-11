@@ -1,75 +1,411 @@
-<!doctype html>
-<html lang="ko" class="light">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LMN 데스크톱 메인 지도 v0.2.1</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <script src="https://cdn.tailwindcss.com"></script>
+﻿<!-- LMN 데스크톱 메인 지도 개편 (v0.2.1) -->
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#006e1c"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "tertiary-fixed-dim": "#ffb870",
+                            "primary": "#006e1c",
+                            "surface-container-high": "#eae8e7",
+                            "on-primary-fixed": "#002204",
+                            "surface-container": "#f0eded",
+                            "on-tertiary-fixed-variant": "#693c00",
+                            "surface-dim": "#dcd9d9",
+                            "on-surface-variant": "#3f4a3c",
+                            "surface-container-lowest": "#ffffff",
+                            "secondary-container": "#33a0fd",
+                            "secondary-fixed": "#d1e4ff",
+                            "on-primary": "#ffffff",
+                            "tertiary-container": "#e18500",
+                            "on-primary-container": "#003c0b",
+                            "surface-container-highest": "#e4e2e1",
+                            "error": "#ba1a1a",
+                            "error-container": "#ffdad6",
+                            "background": "#fbf9f8",
+                            "surface-variant": "#e4e2e1",
+                            "on-secondary-fixed-variant": "#00497d",
+                            "outline": "#6f7a6b",
+                            "secondary": "#0061a4",
+                            "surface-container-low": "#f6f3f2",
+                            "on-error": "#ffffff",
+                            "on-surface": "#1b1c1c",
+                            "secondary-fixed-dim": "#9ecaff",
+                            "inverse-primary": "#78dc77",
+                            "on-primary-fixed-variant": "#005313",
+                            "on-background": "#1b1c1c",
+                            "on-tertiary-fixed": "#2c1600",
+                            "tertiary-fixed": "#ffdcbe",
+                            "inverse-surface": "#303030",
+                            "primary-container": "#4caf50",
+                            "outline-variant": "#becab9",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-container": "#00355c",
+                            "on-secondary": "#ffffff",
+                            "surface": "#fbf9f8",
+                            "primary-fixed-dim": "#78dc77",
+                            "primary-fixed": "#94f990",
+                            "tertiary": "#8b5000",
+                            "surface-bright": "#fbf9f8",
+                            "on-tertiary-container": "#4d2b00",
+                            "inverse-on-surface": "#f3f0f0",
+                            "surface-tint": "#006e1c",
+                            "on-secondary-fixed": "#001d36",
+                            "on-error-container": "#93000a",
+                            "custom-location": "#4CAF50",
+                            "custom-search": "#2196F3",
+                            "custom-route": "#FF9800",
+                            "custom-hospital": "#F44336",
+                            "custom-pharmacy": "#9C27B0",
+                            "custom-store": "#FF5722"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                        },
+                        "spacing": {
+                            "touch-target-min": "44px",
+                            "stack-sm": "4px",
+                            "stack-md": "8px",
+                            "stack-lg": "16px",
+                            "margin-page": "16px",
+                            "gutter": "12px"
+                        },
+                        "fontFamily": {
+                            "title": ["Noto Sans"],
+                            "body": ["Noto Sans"],
+                            "label-caps": ["Noto Sans"],
+                            "body-sm": ["Noto Sans"],
+                            "header-mobile": ["Noto Sans"],
+                            "header-desktop": ["Noto Sans"]
+                        },
+                        "fontSize": {
+                            "title": ["16px", {"lineHeight": "22px", "fontWeight": "600"}],
+                            "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                            "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                            "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                            "header-mobile": ["17px", {"lineHeight": "22px", "fontWeight": "700"}],
+                            "header-desktop": ["18px", {"lineHeight": "24px", "fontWeight": "700"}]
+                        }
+                    },
+                },
+            }
+        } catch (_e) {}
+    </script>
+<style>
+    body.lmn-revamp {
+        font-family: 'IBM Plex Sans KR', 'Noto Sans KR', sans-serif;
+        background:
+            radial-gradient(1000px 500px at 6% 0%, rgba(0,110,28,0.16), transparent 62%),
+            radial-gradient(760px 420px at 96% 100%, rgba(0,97,164,0.18), transparent 66%),
+            linear-gradient(160deg, #f8fbf9 0%, #eff6f2 52%, #eef4f8 100%);
+    }
+
+    body.lmn-revamp::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.22;
+        background-image:
+            linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+        background-size: 26px 26px;
+    }
+
+    .lmn-topbar {
+        backdrop-filter: blur(12px);
+        background: rgba(255,255,255,0.86);
+        border-bottom-color: rgba(117,141,122,0.28);
+    }
+
+    .lmn-brand {
+        font-family: 'Space Grotesk', 'IBM Plex Sans KR', sans-serif;
+        letter-spacing: 0.2px;
+    }
+
+    .lmn-panel {
+        background: rgba(255,255,255,0.78);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 18px 40px rgba(23, 48, 33, 0.12);
+    }
+
+    .lmn-panel .lmn-card {
+        border-radius: 14px;
+        box-shadow: 0 6px 16px rgba(14, 32, 20, 0.08);
+    }
+
+    #directions-btn {
+        background: linear-gradient(135deg, #ff9a1f 0%, #ff6f11 100%);
+        box-shadow: 0 10px 24px rgba(255, 111, 17, 0.34);
+    }
+
+    #route-summary, #route-fare-summary, #combo-summary {
+        background: rgba(255,255,255,0.68);
+        border: 1px solid rgba(120,138,128,0.24);
+        border-radius: 10px;
+        padding: 7px 10px;
+    }
+
+    main.lmn-main > section:last-child {
+        border-radius: 18px;
+        overflow: hidden;
+        margin: 10px 12px 10px 0;
+        box-shadow: 0 16px 36px rgba(12, 30, 18, 0.18);
+    }
+
+    nav.lmn-bottom {
+        backdrop-filter: blur(12px);
+        background: rgba(255,255,255,0.9);
+        border-top-color: rgba(117,141,122,0.3);
+    }
+
+    .lmn-animate-rise {
+        animation: lmnRise .45s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .menu-close-btn {
+        display: none;
+    }
+
+    .menu-advanced {
+        display: none;
+    }
+
+    body.menu-open .menu-close-btn {
+        display: inline-flex;
+    }
+
+    body.menu-open .menu-advanced {
+        display: block;
+    }
+
+    body.menu-open .lmn-panel {
+        position: fixed;
+        top: 44px;
+        left: 0;
+        right: 0;
+        bottom: 64px;
+        z-index: 1200;
+        width: auto !important;
+        max-width: none !important;
+        height: auto !important;
+        border-right: none;
+    }
+
+    @keyframes lmnRise {
+        from { transform: translateY(8px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+</style>
 </head>
-<body class="font-[Noto_Sans] bg-[#fbf9f8] text-[#1b1c1c] h-screen overflow-hidden">
-  <header class="h-11 border-b border-[#becab9] bg-white px-4 flex items-center justify-between">
-    <strong class="text-[#006e1c] text-lg">LMN</strong>
-    <a href="index.html" class="text-sm text-[#0061a4]">목록</a>
-  </header>
+<body class="lmn-revamp bg-surface text-on-surface flex flex-col h-screen overflow-hidden">
+<header class="lmn-topbar fixed top-0 w-full z-[1001] bg-surface-container-lowest border-b border-outline-variant px-margin-page h-[44px] flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="explore">explore</span>
+<h1 class="lmn-brand font-header-desktop text-header-desktop text-primary">LMN</h1>
+<span class="text-[11px] px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary">게스트 모드</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant" id="menu-toggle-btn">메뉴</button>
+<span id="network-badge" class="text-[11px] px-2 py-0.5 rounded-full bg-green-100 text-green-700">온라인</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-150" data-icon="my_location" data-action="locate">my_location</button>
+</div>
+</header>
+<main class="lmn-main flex-1 flex flex-col md:flex-row pt-[44px] pb-[64px] h-full overflow-hidden lmn-animate-rise">
+<!-- Control Panel (35% on Desktop) -->
+<section class="lmn-panel h-[36%] md:h-full md:w-[18%] md:max-w-[240px] flex flex-col bg-surface-container-low z-20 overflow-hidden border-r border-outline-variant shadow-lg">
+<div class="p-margin-page space-y-stack-lg flex-grow overflow-y-auto">
+<div class="flex justify-end">
+<button class="menu-close-btn text-[11px] px-2 py-1 rounded-full border border-outline-variant" id="menu-close-btn">닫기</button>
+</div>
+<!-- Section A: Location Info -->
+<div class="lmn-card flex items-center justify-between bg-custom-location text-on-primary p-stack-lg rounded-xl shadow-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-1 mb-0.5">
+<span class="text-lg">🗺️</span>
+<span class="font-title text-title">내 위치</span>
+</div>
+<span class="font-body-sm text-body-sm opacity-90 font-mono" id="coords-display">(37.5665, 126.9780)</span>
+</div>
+<button class="h-stack-lg px-stack-lg bg-white text-custom-location font-title text-title rounded-lg shadow-sm hover:brightness-105 active:scale-95 transition-all text-[13px] py-1" data-action="locate">내 위치 찾기</button>
+</div>
+<!-- Section B: Search -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant px-1">출발지 검색</label>
+<div class="flex items-center gap-stack-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">trip_origin</span>
+<input class="w-full h-touch-target-min pl-10 pr-4 bg-surface-container-lowest border border-outline-variant rounded-xl font-body text-body focus:ring-2 focus:ring-custom-search focus:border-custom-search outline-none transition-all placeholder:text-outline" id="start-input" placeholder="출발지 입력" type="text"/>
+</div>
+<button class="h-touch-target-min px-stack-lg bg-surface-container-high text-on-surface rounded-xl font-title text-title hover:brightness-105 active:opacity-90 transition-all shadow-sm" data-action="search-start">출발</button>
+</div>
+<label class="font-label-caps text-label-caps text-on-surface-variant px-1">목적지 검색</label>
+<div class="flex items-center gap-stack-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full h-touch-target-min pl-10 pr-4 bg-surface-container-lowest border border-outline-variant rounded-xl font-body text-body focus:ring-2 focus:ring-custom-search focus:border-custom-search outline-none transition-all placeholder:text-outline" id="destination-input" placeholder="서울역, 강남역, 병원..." type="text"/>
+</div>
+<button class="h-touch-target-min px-stack-lg bg-custom-search text-white rounded-xl font-title text-title hover:brightness-110 active:opacity-90 transition-all shadow-sm" data-action="search">검색</button>
+</div>
+<div class="menu-advanced">
+<div class="flex items-center justify-between mt-1">
+<p class="text-[11px] text-on-surface-variant">최근 검색</p>
+<button class="text-[11px] text-secondary" id="clear-recent-btn">지우기</button>
+</div>
+<div class="flex gap-2 overflow-x-auto" id="recent-search-list"></div>
+<div class="grid grid-cols-2 gap-2 mt-1">
+<button class="text-[11px] px-2 py-1 rounded-lg border border-outline-variant" id="toggle-theme-btn">다크</button>
+<button class="text-[11px] px-2 py-1 rounded-lg border border-outline-variant" id="reset-map-btn">지도 초기화</button>
+<button class="text-[11px] px-2 py-1 rounded-lg border border-outline-variant" id="copy-coords-btn">좌표 복사</button>
+<button class="text-[11px] px-2 py-1 rounded-lg border border-outline-variant" id="share-destination-btn">목적지 공유</button>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-[11px] text-on-surface-variant" for="nearby-radius-range">주변 반경</label>
+<input class="flex-1" id="nearby-radius-range" max="3000" min="300" step="100" type="range" value="1500"/>
+<span class="text-[11px] w-12 text-right" id="nearby-radius-label">1.5km</span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<p class="text-[11px] text-on-surface-variant">저장 목적지</p>
+<button class="text-[11px] text-secondary" id="clear-favorites-btn">모두 지우기</button>
+</div>
+<div class="space-y-1" id="favorites-list"></div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-[11px] px-2 py-1 rounded-lg border border-outline-variant" id="export-data-btn">데이터 내보내기</button>
+<button class="text-[11px] px-2 py-1 rounded-lg border border-outline-variant" id="import-data-btn">데이터 가져오기</button>
+<input class="hidden" id="import-data-input" type="file" accept="application/json"/>
+</div>
+</div>
+<!-- Section C: Route Button -->
+<div class="pt-2">
+<div class="mb-2">
+<p class="text-[11px] text-on-surface-variant mb-1">이동수단</p>
+<div class="flex gap-1 overflow-x-auto pb-1">
+<button class="text-[11px] px-2 py-1 rounded-full bg-primary-container/30 text-on-surface whitespace-nowrap" data-route-mode="driving">차량</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant whitespace-nowrap" data-route-mode="walking">도보</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant whitespace-nowrap" data-route-mode="cycling">자전거</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant whitespace-nowrap" data-route-mode="subway">지하철</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant whitespace-nowrap" data-route-mode="bus">버스</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant whitespace-nowrap" data-route-mode="taxi">택시</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant whitespace-nowrap" data-route-mode="flight">비행기</button>
+</div>
+</div>
+<button class="w-full h-touch-target-min flex items-center justify-center gap-stack-md bg-custom-route text-white rounded-xl font-title text-title active:scale-[0.98] transition-all shadow-md" id="directions-btn">
+<span class="material-symbols-outlined" data-icon="directions">directions</span>
+                        내부 길찾기
+                    </button>
+<p class="text-[11px] text-on-surface-variant mt-2" id="route-summary">길찾기 결과가 여기에 표시됩니다.</p>
+<p class="text-[11px] text-primary mt-1" id="route-fare-summary">예상 요금: -</p>
+<div class="mt-2 flex items-center gap-2">
+<select class="flex-1 h-touch-target-min bg-surface-container-lowest border border-outline-variant rounded-xl px-3 text-[12px]" id="route-combo-select">
+<option value="">조합 경로 선택</option>
+<option value="walk-subway-walk">도보 + 지하철 + 도보</option>
+<option value="walk-bus-walk">도보 + 버스 + 도보</option>
+<option value="taxi-subway-walk">택시 + 지하철 + 도보</option>
+<option value="drive-flight-drive">차량 + 비행기 + 차량</option>
+<option value="bike-subway-walk">자전거 + 지하철 + 도보</option>
+</select>
+<button class="h-touch-target-min px-stack-lg border border-outline-variant rounded-xl text-[12px]" id="combo-route-btn">조합</button>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1" id="combo-summary">조합 경로를 선택하면 구간별 경로와 요금을 계산합니다.</p>
+<button class="w-full mt-2 h-touch-target-min flex items-center justify-center gap-stack-md border border-outline-variant text-on-surface rounded-xl font-title text-title transition-all" id="save-favorite-btn">
+<span class="material-symbols-outlined" data-icon="bookmark_add">bookmark_add</span>
+                        현재 목적지 저장
+                    </button>
+</div>
+<!-- Section D: Category Buttons -->
+<div class="grid grid-cols-3 gap-stack-lg pt-2">
+<button class="aspect-square flex flex-col items-center justify-center gap-stack-md border border-outline-variant bg-surface-container-lowest rounded-xl hover:border-custom-hospital hover:bg-error-container/10 group transition-all" data-category="hospital">
+<div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="text-2xl">🏥</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface">병원 찾기</span>
+</button>
+<button class="aspect-square flex flex-col items-center justify-center gap-stack-md border border-outline-variant bg-surface-container-lowest rounded-xl hover:border-custom-pharmacy hover:bg-secondary-container/10 group transition-all" data-category="pharmacy">
+<div class="w-12 h-12 rounded-full bg-secondary-container/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="text-2xl">💊</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface">약국 찾기</span>
+</button>
+<button class="aspect-square flex flex-col items-center justify-center gap-stack-md border border-outline-variant bg-surface-container-lowest rounded-xl hover:border-custom-store hover:bg-tertiary-container/10 group transition-all" data-category="convenience">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="text-2xl">🏪</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface">편의점 찾기</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Section E: Status Bar (60px) -->
+<div class="flex-shrink-0 h-[60px] bg-primary-container/10 flex items-center px-margin-page border-t border-outline-variant/30">
+<div class="flex items-center gap-stack-md text-primary font-title text-title">
+<span class="material-symbols-outlined fill-1 text-[20px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="font-body text-body font-semibold" id="status-message">준비 완료: 내 위치를 찾거나 목적지를 검색해 주세요.</p>
+</div>
+</div>
+</section>
+<!-- Map Area (72% on Desktop) -->
+<section class="h-[64%] md:h-full md:flex-1 relative bg-surface-container-highest">
+<div class="w-full h-full" id="map"></div>
+<div class="absolute left-3 top-3 z-[1000] flex gap-2 bg-white/90 backdrop-blur px-2 py-2 rounded-xl shadow-lg border border-outline-variant">
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant bg-error-container/30" data-category="hospital">병원</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant bg-secondary-container/20" data-category="pharmacy">약국</button>
+<button class="text-[11px] px-2 py-1 rounded-full border border-outline-variant bg-tertiary-container/20" data-category="convenience">편의점</button>
+</div>
+<!-- Map Controls -->
+<div class="absolute right-margin-page bottom-margin-page z-[1000] flex flex-col gap-stack-md">
+<button class="w-11 h-11 bg-surface-container-lowest border border-outline-variant shadow-md flex items-center justify-center rounded-xl hover:bg-surface-container-high transition-colors" data-action="locate">
+<span class="material-symbols-outlined text-on-surface-variant">my_location</span>
+</button>
+<button class="w-11 h-11 bg-primary text-on-primary shadow-lg flex items-center justify-center rounded-xl active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">navigation</span>
+</button>
+</div>
+</section>
+</main>
+<nav class="lmn-bottom fixed bottom-0 w-full z-[1001] h-[64px] bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center px-gutter shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-xl px-6 py-1" data-nav="desktop-main.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-label-caps text-label-caps">지도</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl px-6 py-1" data-nav="mobile-search.html">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-caps text-label-caps">검색</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl px-6 py-1" data-nav="mobile-saved.html">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-caps text-label-caps">저장</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-xl px-6 py-1" data-nav="mobile-profile.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps">내 정보</span>
+</button>
+</nav>
+<!-- Leaflet.js Script -->
+<script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="lmn-core.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('sw.js').catch(function () {});
+        });
+    }
+</script>
+</body></html>
 
-  <main class="h-[calc(100vh-44px)] flex">
-    <section class="w-[36%] max-w-[430px] border-r border-[#becab9] bg-[#f6f3f2] flex flex-col">
-      <div class="p-4 space-y-3 overflow-auto">
-        <div class="rounded-xl bg-[#4caf50] text-white p-4 flex items-center justify-between">
-          <div>
-            <p class="text-xs opacity-90">내 위치</p>
-            <p id="coords" class="font-mono text-sm">(37.5665, 126.9780)</p>
-          </div>
-          <button class="bg-white text-[#4caf50] rounded-lg px-3 py-2 text-sm font-bold">내 위치 찾기</button>
-        </div>
-
-        <div class="space-y-2">
-          <label class="text-xs font-bold text-[#3f4a3c]">목적지 검색</label>
-          <div class="flex gap-2">
-            <input class="flex-1 h-11 rounded-xl border border-[#becab9] px-3" placeholder="서울역, 강남역, 병원..." />
-            <button class="h-11 px-4 rounded-xl bg-[#2196F3] text-white font-semibold">검색</button>
-          </div>
-        </div>
-
-        <button id="routeBtn" class="w-full h-11 rounded-xl bg-[#FF9800] text-white font-semibold">길찾기 열기</button>
-
-        <div class="grid grid-cols-3 gap-2">
-          <button class="h-20 rounded-xl border border-[#becab9] bg-white">🏥<br><span class="text-xs">병원</span></button>
-          <button class="h-20 rounded-xl border border-[#becab9] bg-white">💊<br><span class="text-xs">약국</span></button>
-          <button class="h-20 rounded-xl border border-[#becab9] bg-white">🏪<br><span class="text-xs">편의점</span></button>
-        </div>
-      </div>
-      <div class="h-14 px-4 border-t border-[#becab9] bg-[#e9f6ea] flex items-center text-sm text-[#006e1c] font-semibold">✓ 목적지를 찾았습니다.</div>
-    </section>
-
-    <section class="flex-1 relative">
-      <div id="map" class="w-full h-full"></div>
-      <div class="absolute right-4 bottom-4 flex flex-col gap-2 z-[1000]">
-        <button class="w-11 h-11 rounded-xl bg-white border border-[#becab9]">＋</button>
-        <button class="w-11 h-11 rounded-xl bg-white border border-[#becab9]">－</button>
-      </div>
-    </section>
-  </main>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script>
-    const map = L.map('map', { zoomControl: false }).setView([37.5665, 126.9780], 15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    let lat = 37.5665;
-    let lng = 126.9780;
-    const coords = document.getElementById('coords');
-    setInterval(() => {
-      lat += (Math.random() - 0.5) * 0.00005;
-      lng += (Math.random() - 0.5) * 0.00005;
-      coords.textContent = `(${lat.toFixed(4)}, ${lng.toFixed(4)})`;
-    }, 3000);
-  </script>
-</body>
-</html>
